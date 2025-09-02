@@ -1,0 +1,71 @@
+{
+  "headline": "Q3 Strategiemeeting",
+  "participants": [
+    "Anna Müller",
+    "Bernd Schmidt",
+    "Claudia Fischer",
+    "David Weber"
+  ],
+  "overview": [
+    {
+      "name": "Anna Müller",
+      "points": [
+        "Begrüßung und Vorstellung der Agenda",
+        "Review der Umsatzentwicklung Q2",
+        "Hinweis auf neue Datenschutzrichtlinien"
+      ]
+    },
+    {
+      "name": "Bernd Schmidt",
+      "points": [
+        "Status Produkt-Roadmap",
+        "Engpass in der Entwicklung (Backend Ressourcen)",
+        "Vorschlag: Externe Unterstützung evaluieren"
+      ]
+    },
+    {
+      "name": "Claudia Fischer",
+      "points": [
+        "Marketing KPIs: Lead-Generierung +18%",
+        "Geplante Herbst-Kampagne",
+        "Budgetanpassung erforderlich"
+      ]
+    },
+    {
+      "name": "David Weber",
+      "points": [
+        "IT-Infrastruktur Update abgeschlossen",
+        "Security Audit Ergebnisse kurz erläutert",
+        "Vorschlag für MFA-Rollout bis Ende Oktober"
+      ]
+    }
+  ],
+  "action_items": [
+    {
+      "name": "Anna Müller",
+      "points": ["Abstimmung mit Legal zu Datenschutzrichtlinien bis 12.09."]
+    },
+    {
+      "name": "Bernd Schmidt",
+      "points": [
+        "Ressourcenplan für Backend erstellen bis 08.09.",
+        "Angebote externer Dienstleister einholen bis 15.09."
+      ]
+    },
+    {
+      "name": "Claudia Fischer",
+      "points": [
+        "Budgetvorschlag für Herbst-Kampagne finalisieren bis 11.09.",
+        "Kampagnen-Briefing an Design senden bis 06.09."
+      ]
+    },
+    {
+      "name": "David Weber",
+      "points": [
+        "MFA-Rollout-Plan erstellen bis 14.09.",
+        "Security Audit Detailreport verteilen bis 05.09."
+      ]
+    }
+  ],
+  "summary": "Das Meeting behandelte Umsatz- und Marketingentwicklungen, Produkt-Roadmap-Herausforderungen sowie Infrastruktur- und Sicherheitsupdates. Zentrale Maßnahmen fokussieren auf Ressourcenplanung, Kampagnenbudget und Sicherheitsverbesserungen."
+}
