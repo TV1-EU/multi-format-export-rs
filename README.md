@@ -64,9 +64,6 @@ Since this crate is not published on crates.io, add it directly from the reposit
 multi-format-export-rs = { git = "https://github.com/TV1-EU/multi-format-export-rs" }
 ```
 
-(If you later add a CLI binary, users could install it with:
-`cargo install --git https://github.com/TV1-EU/multi-format-export-rs`)
-
 ## Extending
 
 Implement the `Export` trait and register your exporter in `MultiFormatExportEngine::new()` (or expose a registration method) to support additional formats (e.g. EPUB).
