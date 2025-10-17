@@ -143,7 +143,7 @@ impl DocxExporter {
             if rest.is_empty() {
                 return Some((heading_para, None));
             }
-            let mut body_para = DocxParagraph::new();
+            let mut body_para = self.new_body_paragraph();
             let remainder_node = Node::Text(mdast::Text {
                 value: rest.to_string(),
                 position: None,
@@ -257,7 +257,7 @@ impl DocxExporter {
             | Node::Emphasis(_)
             | Node::Break(_)
             | Node::InlineCode(_) => {
-                let mut para = DocxParagraph::new();
+                let mut para = self.new_body_paragraph();
                 para = self.append_inline_children_with_base(
                     para,
                     std::slice::from_ref(node),
@@ -273,7 +273,7 @@ impl DocxExporter {
     }
 
     fn render_paragraph(&self, p: &mdast::Paragraph) -> DocxParagraph {
-        let mut para = DocxParagraph::new();
+        let mut para = self.new_body_paragraph();
         para = self.append_inline_children_with_base(para, &p.children, false, false, 0, false);
         para
     }
@@ -287,14 +287,13 @@ impl DocxExporter {
             )
             .add_text(code.value.clone());
 
-        // Respect default font size (monospace) if set
         if self.default_font_size > 0 {
             run = run.size(self.default_font_size);
         }
 
-        DocxParagraph::new()
-            .indent(Some(0), None, None, None)
-            .add_run(run)
+        let mut p = self.new_body_paragraph();
+        p = p.indent(Some(0), None, None, None);
+        p.add_run(run)
     }
 
     // ---------------- Inline handling ----------------
@@ -452,6 +451,30 @@ impl DocxExporter {
             }
         }
         buf
+    }
+
+    fn body_paragraph_spacing(&self) -> (u32, u32) {
+        // baseline: before = 0, after = 160 twips (~8pt)
+        let base_before = 0u32;
+        let base_after = 160u32;
+
+        let body_pt = self.default_font_size as f32 / 2.0;
+        let ratio = body_pt / 11.0;
+        let scale = |v: u32| -> u32 {
+            if v == 0 {
+                0
+            } else {
+                let scaled = (v as f32 * ratio).round();
+                // avoid collapsing to 0 if scaling gets very small
+                scaled.max(20.0) as u32
+            }
+        };
+        (scale(base_before), scale(base_after))
+    }
+
+    fn new_body_paragraph(&self) -> DocxParagraph {
+        let (before, after) = self.body_paragraph_spacing();
+        DocxParagraph::new().line_spacing(docx_rs::LineSpacing::new().before(before).after(after))
     }
 }
 
