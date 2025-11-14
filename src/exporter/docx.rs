@@ -279,21 +279,33 @@ impl DocxExporter {
     }
 
     fn render_code_block(&self, code: &mdast::Code) -> DocxParagraph {
-        let mut run = DocxRun::new()
-            .fonts(
-                RunFonts::new()
-                    .ascii(&self.mono_font_family)
-                    .hi_ansi(&self.mono_font_family),
-            )
-            .add_text(code.value.clone());
-
-        if self.default_font_size > 0 {
-            run = run.size(self.default_font_size);
-        }
-
         let mut p = self.new_body_paragraph();
         p = p.indent(Some(0), None, None, None);
-        p.add_run(run)
+
+        // Split code by newlines and create runs with breaks
+        for (i, line) in code.value.lines().enumerate() {
+            let mut run = DocxRun::new()
+                .fonts(
+                    RunFonts::new()
+                        .ascii(&self.mono_font_family)
+                        .hi_ansi(&self.mono_font_family),
+                )
+                .add_text(line.to_string());
+
+            if self.default_font_size > 0 {
+                run = run.size(self.default_font_size);
+            }
+
+            p = p.add_run(run);
+
+            // Add line break after each line except the last
+            if i < code.value.lines().count() - 1 {
+                let break_run = DocxRun::new().add_break(BreakType::TextWrapping);
+                p = p.add_run(break_run);
+            }
+        }
+
+        p
     }
 
     // ---------------- Inline handling ----------------
